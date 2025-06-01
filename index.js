@@ -5,7 +5,7 @@ const port = 3000;
 app.use(express.json());
 
 // Simple route
-app.get('/', (req, res) => {
+app.get('/welcome', (req, res) => {
   res.send('Welcome to your Node.js API!');
 });
 
