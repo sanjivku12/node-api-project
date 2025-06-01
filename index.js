@@ -1,24 +1,26 @@
+const express = require('express');
+const app = express();
+const port = 3000;
 
-console.log("Hello, World!");
-console.log("File structure loaded successfully!");
+app.use(express.json());
 
-// Basic Node.js application
-const fs = require('fs');
-const path = require('path');
+// Simple route
+app.get('/', (req, res) => {
+  res.send('Welcome to your Node.js API!');
+});
 
-// Function to display current directory contents
-function showFileStructure() {
-    try {
-        const files = fs.readdirSync('.');
-        console.log("\nCurrent directory contents:");
-        files.forEach(file => {
-            const stats = fs.statSync(file);
-            const type = stats.isDirectory() ? '[DIR]' : '[FILE]';
-            console.log(`${type} ${file}`);
-        });
-    } catch (error) {
-        console.error("Error reading directory:", error.message);
-    }
-}
+// Examp
+  
+  const fs = require('fs');
 
-showFileStructure();
+app.post('/contact', (req, res) => {
+  const { name, email, message } = req.body;
+  const entry = `[${new Date().toISOString()}] ${name} - ${email} - ${message}\n`;
+  fs.appendFileSync('contacts.txt', entry);
+  res.json({ success: true, message: "Saved to file!" });
+});
+
+
+app.listen(port, () => {
+  console.log(`API listening at http://localhost:${port}`);
+});
